@@ -1,22 +1,26 @@
 module shp_append_object_03_m
 
+  use, INTRINSIC:: iso_c_binding
+  use shapelib, only: shpfileobject, shpobject, shpcreateobject, &
+       shpcreatesimpleobject, shpisnull, shpwriteobject, shpdestroyobject
+
   implicit none
 
   interface shp_append_object_03
      module procedure shp_append_object_03_single, shp_append_object_03_c_double
-     ! The difference between the procedures is the kind of argument padf.
+     ! Not for MultiPatch shape type. No measure. The difference
+     ! between the procedures is the kind of argument padf.
   end interface shp_append_object_03
+
+  integer, parameter:: shpp_ring = 5
+
+  private
+  public shp_append_object_03
 
 contains
 
   subroutine shp_append_object_03_single(ishape, hshp, nshptype, padf, &
        pan_part_start)
-
-    ! Not for MultiPatch shape type. No measure.
-
-    use, INTRINSIC:: iso_c_binding
-    use shapelib, only: shpfileobject, shpobject, shpcreateobject, shpisnull, &
-         shpwriteobject, shpdestroyobject
 
     integer, intent(out):: ishape
     ! entity number of the appended shape, starting from 0
@@ -28,34 +32,48 @@ contains
     ! x, y and possibly z coordinates for all the rings. For each
     ! ring, the last vertex must repeat the first vertex.
 
-    integer, intent(in):: pan_part_start(:) ! (nparts)
+    integer, intent(in), optional:: pan_part_start(:) ! (nparts)
     ! The list of zero based start vertices for the rings (parts) in
     ! this object. The first should always be zero.
 
     ! Local:
     TYPE(shpobject) psobject
-    integer, parameter:: shpp_ring = 5
     integer nparts, i
 
     !-----------------------------------------------------------------
 
-    nparts = size(pan_part_start)
+    if (present(pan_part_start)) then
+       nparts = size(pan_part_start)
 
-    if (size(padf, 1) == 3) then
-       psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
-            panpartstart = pan_part_start, &
-            panparttype = [(shpp_ring, i = 1, nparts)], &
-            nvertices = size(padf, 2), &
-            padfx = real(padf(1, :), kind = c_double), &
-            padfy = real(padf(2, :), kind = c_double), &
-            padfz = real(padf(3, :), kind = c_double))
+       if (size(padf, 1) == 3) then
+          psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
+               panpartstart = pan_part_start, &
+               panparttype = [(shpp_ring, i = 1, nparts)], &
+               nvertices = size(padf, 2), &
+               padfx = real(padf(1, :), kind = c_double), &
+               padfy = real(padf(2, :), kind = c_double), &
+               padfz = real(padf(3, :), kind = c_double))
+       else
+          psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
+               panpartstart = pan_part_start, &
+               panparttype = [(shpp_ring, i = 1, nparts)], &
+               nvertices = size(padf, 2), &
+               padfx = real(padf(1, :), kind = c_double), &
+               padfy = real(padf(2, :), kind = c_double))
+       end if
     else
-       psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
-            panpartstart = pan_part_start, &
-            panparttype = [(shpp_ring, i = 1, nparts)], &
-            nvertices = size(padf, 2), &
-            padfx = real(padf(1, :), kind = c_double), &
-            padfy = real(padf(2, :), kind = c_double))
+       if (size(padf, 1) == 3) then
+          psobject = shpcreatesimpleobject(nshptype, &
+               nvertices = size(padf, 2), &
+               padfx = real(padf(1, :), kind = c_double), &
+               padfy = real(padf(2, :), kind = c_double), &
+               padfz = real(padf(3, :), kind = c_double))
+       else
+          psobject = shpcreatesimpleobject(nshptype, &
+               nvertices = size(padf, 2), &
+               padfx = real(padf(1, :), kind = c_double), &
+               padfy = real(padf(2, :), kind = c_double))
+       end if
     end if
 
     if (shpisnull(psobject)) then
@@ -81,12 +99,6 @@ contains
   subroutine shp_append_object_03_c_double(ishape, hshp, nshptype, padf, &
        pan_part_start)
 
-    ! Not for MultiPatch shape type. No measure.
-
-    use, INTRINSIC:: iso_c_binding
-    use shapelib, only: shpfileobject, shpobject, shpcreateobject, shpisnull, &
-         shpwriteobject, shpdestroyobject
-
     integer, intent(out):: ishape
     ! entity number of the appended shape, starting from 0
 
@@ -97,30 +109,42 @@ contains
     ! x, y and possibly z coordinates for all the rings. For each
     ! ring, the last vertex must repeat the first vertex.
 
-    integer, intent(in):: pan_part_start(:) ! (nparts)
+    integer, intent(in), optional:: pan_part_start(:) ! (nparts)
     ! The list of zero based start vertices for the rings (parts) in
     ! this object. The first should always be zero.
 
     ! Local:
     TYPE(shpobject) psobject
-    integer, parameter:: shpp_ring = 5
     integer nparts, i
 
     !-----------------------------------------------------------------
 
-    nparts = size(pan_part_start)
+    if (present(pan_part_start)) then
+       nparts = size(pan_part_start)
 
-    if (size(padf, 1) == 3) then
-       psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
-            panpartstart = pan_part_start, &
-            panparttype = [(shpp_ring, i = 1, nparts)], &
-            nvertices = size(padf, 2), padfx = padf(1, :), padfy = padf(2, :), &
-            padfz = padf(3, :))
+       if (size(padf, 1) == 3) then
+          psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
+               panpartstart = pan_part_start, &
+               panparttype = [(shpp_ring, i = 1, nparts)], &
+               nvertices = size(padf, 2), padfx = padf(1, :), &
+               padfy = padf(2, :), padfz = padf(3, :))
+       else
+          psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
+               panpartstart = pan_part_start, &
+               panparttype = [(shpp_ring, i = 1, nparts)], &
+               nvertices = size(padf, 2), padfx = padf(1, :), &
+               padfy = padf(2, :))
+       end if
     else
-       psobject = shpcreateobject(nshptype, ishape = - 1, nparts = nparts, &
-            panpartstart = pan_part_start, &
-            panparttype = [(shpp_ring, i = 1, nparts)], &
-            nvertices = size(padf, 2), padfx = padf(1, :), padfy = padf(2, :))
+       if (size(padf, 1) == 3) then
+          psobject = shpcreatesimpleobject(nshptype, &
+               nvertices = size(padf, 2), padfx = padf(1, :), &
+               padfy = padf(2, :), padfz = padf(3, :))
+       else
+          psobject = shpcreatesimpleobject(nshptype, &
+               nvertices = size(padf, 2), padfx = padf(1, :), &
+               padfy = padf(2, :))
+       end if
     end if
 
     if (shpisnull(psobject)) then
