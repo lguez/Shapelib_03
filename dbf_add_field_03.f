@@ -15,7 +15,9 @@ contains
     ! shapefile object to update
 
     CHARACTER(len=*), INTENT(in):: pszfieldname
-    ! name of the new field, at most 11 characters
+    ! Name of the new field, at most 10 characters. The DBF API says
+    ! "at most 11 character will be used", but it seems this includes
+    ! the null character at the end.
 
     INTEGER, INTENT(in):: etype
     ! type of the new field, one of the ft* constants
@@ -29,7 +31,7 @@ contains
 
     !-----------------------------------------------------------------
 
-    if (len(pszfieldname) > 11 .or. (etype /= ftdouble .and. ndecimals /= 0)) &
+    if (len(pszfieldname) > 10 .or. (etype /= ftdouble .and. ndecimals /= 0)) &
          call print_stop
     ifield = dbfaddfield(hshp, pszfieldname, etype, nwidth, ndecimals)
     if (ifield == - 1) call print_stop
@@ -38,7 +40,7 @@ contains
 
     subroutine print_stop
 
-      print *, "dbfaddfield03: error"
+      print *, "dbf_add_field_03: error"
       print *, "pszfieldname = ", pszfieldname
       print *, "etype = ", etype
       print *, "nwidth = ", nwidth
