@@ -13,8 +13,10 @@ contains
     use, INTRINSIC:: iso_c_binding
     use shapelib, only: shpfileobject, dbfwriteattribute
 
-    type(shpfileobject), intent(inout):: hshp
-    ! access handle for the shapefile to be written
+    type(shpfileobject), value:: hshp
+    ! Access handle for the shapefile to be written. Value attribute
+    ! to circumvent a bug in FortranGIS: dummy argument hshp of
+    ! shpwriteobject should be intent(in).
 
     integer, intent(in):: ishape
     ! record number (shape number) to which the field value should be written
@@ -49,8 +51,10 @@ contains
     use, INTRINSIC:: iso_c_binding
     use shapelib, only: shpfileobject, dbfwriteattribute
 
-    type(shpfileobject), intent(inout):: hshp
-    ! access handle for the shapefile to be written
+    type(shpfileobject), value:: hshp
+    ! Access handle for the shapefile to be written. Value attribute
+    ! to circumvent a bug in FortranGIS: dummy argument hshp of
+    ! shpwriteobject should be intent(in).
 
     integer, intent(in):: ishape
     ! record number (shape number) to which the field value should be written

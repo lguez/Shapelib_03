@@ -13,7 +13,9 @@ contains
     integer, intent(out):: ishape
     ! entity number of the appended shape, starting from 0
     
-    TYPE(shpfileobject), intent(inout):: hshp
+    TYPE(shpfileobject), value:: hshp
+    ! value attribute to circumvent a bug in FortranGIS: dummy
+    ! argument hshp of shpwriteobject should be intent(in)
 
     ! Local:
     REAL(kind = c_double) padf(0)

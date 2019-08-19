@@ -25,7 +25,10 @@ contains
     integer, intent(out):: ishape
     ! entity number of the appended shape, starting from 0
 
-    TYPE(shpfileobject), intent(inout):: hshp
+    TYPE(shpfileobject), value:: hshp
+    ! value attribute to circumvent a bug in FortranGIS: dummy
+    ! argument hshp of shpwriteobject should be intent(in)
+
     INTEGER, intent(in):: nshptype ! type of shape, one of the shpt_* constants
 
     REAL, intent(in):: padf(:, :) ! (2 or 3, nvertices)
@@ -102,7 +105,10 @@ contains
     integer, intent(out):: ishape
     ! entity number of the appended shape, starting from 0
 
-    TYPE(shpfileobject), intent(inout):: hshp
+    TYPE(shpfileobject), value:: hshp
+    ! value attribute to circumvent a bug in FortranGIS: dummy
+    ! argument hshp of shpwriteobject should be intent(in)
+    
     INTEGER, intent(in):: nshptype ! type of shape, one of the shpt_* constants
 
     REAL(c_double), intent(in):: padf(:, :) ! (2 or 3, nvertices)
