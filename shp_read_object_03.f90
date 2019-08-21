@@ -8,7 +8,10 @@ contains
 
     use shapelib, only: shpfileobject, shpobject, shpreadobject, shpisnull
 
-    type(shpfileobject), intent(inout):: hshp
+    type(shpfileobject), value:: hshp
+    ! Value attribute to circumvent a bug in FortranGIS: dummy
+    ! argument hshp of shpreadobject should be intent(in).
+
     integer, intent(in):: ishape
     TYPE(shpobject), intent(out):: psobject
 
