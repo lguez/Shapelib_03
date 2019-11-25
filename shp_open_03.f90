@@ -4,16 +4,15 @@ module shp_open_03_m
 
 contains
 
-  subroutine shp_open_03(pszshapefile, pszaccess, hshp)
+  subroutine shp_open_03(hshp, pszshapefile, pszaccess)
 
     use shapelib, only: shpfileobject, shpopen, shpfileisnull, dbffileisnull
 
+    TYPE(shpfileobject), intent(out):: hshp
     CHARACTER(len=*), INTENT(in):: pszshapefile ! filename without extension
 
     CHARACTER(len=*), INTENT(in):: pszaccess ! File access mode.
     ! Should be "rb" for reading or "rb+" for updating a file.
-
-    TYPE(shpfileobject), intent(out):: hshp
 
     !-------------------------------------------------------------
 
