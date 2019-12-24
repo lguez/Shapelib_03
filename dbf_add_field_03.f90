@@ -11,7 +11,7 @@ contains
 
     INTEGER, intent(out):: ifield ! of the new field, starting from 0
 
-    TYPE(shpfileobject), INTENT(inout):: hshp
+    TYPE(shpfileobject), value:: hshp
     ! shapefile object to update
 
     CHARACTER(len=*), INTENT(in):: pszfieldname
