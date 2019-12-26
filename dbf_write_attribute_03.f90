@@ -1,17 +1,22 @@
 module dbf_write_attribute_03_m
 
+  use, INTRINSIC:: iso_c_binding
+
+  ! Librairies:
+  use shapelib, only: shpfileobject, dbfwriteattribute
+
   implicit none
 
   interface dbf_write_attribute_03
      module procedure dbf_write_attribute_03_int, dbf_write_attribute_03_real
   end interface dbf_write_attribute_03
 
+  private
+  public dbf_write_attribute_03
+
 contains
 
   subroutine dbf_write_attribute_03_real(hshp, ishape, ifield, fieldvalue)
-
-    use, INTRINSIC:: iso_c_binding
-    use shapelib, only: shpfileobject, dbfwriteattribute
 
     type(shpfileobject), value:: hshp
     ! Access handle for the shapefile to be written. Value attribute
@@ -47,9 +52,6 @@ contains
   !************************************************************************
 
   subroutine dbf_write_attribute_03_int(hshp, ishape, ifield, fieldvalue)
-
-    use, INTRINSIC:: iso_c_binding
-    use shapelib, only: shpfileobject, dbfwriteattribute
 
     type(shpfileobject), value:: hshp
     ! Access handle for the shapefile to be written. Value attribute
