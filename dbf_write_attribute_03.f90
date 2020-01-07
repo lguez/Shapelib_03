@@ -5,8 +5,6 @@ module dbf_write_attribute_03_m
   ! Librairies:
   use shapelib, only: shpfileobject, dbfwriteattribute
 
-  use ezmpi, only: abort
-
   implicit none
 
   interface dbf_write_attribute_03
@@ -46,7 +44,7 @@ contains
        print *, "ishape = ", ishape
        print *, "ifield = ", ifield
        print *, "fieldvalue = ", fieldvalue
-       call abort
+       stop 1
     end if
 
   end subroutine dbf_write_attribute_03_real
@@ -80,7 +78,7 @@ contains
        print *, "ishape = ", ishape
        print *, "ifield = ", ifield
        print *, "fieldvalue = ", fieldvalue
-       call abort
+       stop 1
     end if
 
   end subroutine dbf_write_attribute_03_int

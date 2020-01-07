@@ -16,14 +16,6 @@ target_include_directories(shapelib_03 PRIVATE
   ${fortrangis_INCLUDE_DIR} PUBLIC
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/modules>)
 
-get_directory_property(my_parent PARENT_DIRECTORY)
-
-if(NOT my_parent)
-  find_package(EZMPI CONFIG REQUIRED)
-endif()
-
-target_link_libraries(shapelib_03 ezmpi)
-
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 include(ConfigureCompilerFlags)
 
