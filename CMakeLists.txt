@@ -8,6 +8,9 @@ add_library(shapelib_03 dbf_add_field_03.f90 shp_append_null_03.f90
   dbf_get_field_index_03.f90 dbf_read_attribute_03.f90)
 
 find_path(fortrangis_INCLUDE_DIR shapelib.mod)
+find_library(fortrangis_LIBRARY fortrangis)
+find_library(fortranc_LIBRARY fortranc)
+find_library(shapelib_LIBRARY shp)
 
 set_target_properties(shapelib_03 PROPERTIES Fortran_MODULE_DIRECTORY
   ${PROJECT_BINARY_DIR}/modules)
@@ -15,6 +18,9 @@ set_target_properties(shapelib_03 PROPERTIES Fortran_MODULE_DIRECTORY
 target_include_directories(shapelib_03 PRIVATE
   ${fortrangis_INCLUDE_DIR} PUBLIC
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/modules>)
+
+target_link_libraries(shapelib_03 ${fortrangis_LIBRARY}
+   ${fortranc_LIBRARY} ${shapelib_LIBRARY})
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 include(ConfigureCompilerFlags)

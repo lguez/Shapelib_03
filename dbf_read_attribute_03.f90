@@ -16,13 +16,13 @@ module dbf_read_attribute_03_m
 
 contains
 
-  SUBROUTINE dbf_read_attribute_03_real(hshp, ishape, ifield, attr)
+  SUBROUTINE dbf_read_attribute_03_real(attr, hshp, ifield, ishape)
 
     use, INTRINSIC:: iso_c_binding
 
-    TYPE(shpfileobject), value:: hshp
-    INTEGER, INTENT(in):: ishape, ifield
     REAL, INTENT(out):: attr
+    TYPE(shpfileobject), value:: hshp
+    INTEGER, INTENT(in):: ifield, ishape
 
     ! Local:
     real(c_double) attr_double
@@ -36,13 +36,13 @@ contains
 
   !**************************************************************************
 
-  SUBROUTINE dbf_read_attribute_03_int(hshp, ishape, ifield, attr)
+  SUBROUTINE dbf_read_attribute_03_int(attr, hshp, ifield, ishape)
 
     use, INTRINSIC:: iso_c_binding
 
-    TYPE(shpfileobject), value:: hshp
-    INTEGER, INTENT(in):: ishape, ifield
     integer, INTENT(out):: attr
+    TYPE(shpfileobject), value:: hshp
+    INTEGER, INTENT(in):: ifield, ishape
 
     !--------------------------------------------------------------------
 
