@@ -15,12 +15,12 @@ find_library(shapelib_LIBRARY shp)
 set_target_properties(shapelib_03 PROPERTIES Fortran_MODULE_DIRECTORY
   ${PROJECT_BINARY_DIR}/modules)
 
-target_include_directories(shapelib_03 PRIVATE
-  ${fortrangis_INCLUDE_DIR} PUBLIC
+target_include_directories(shapelib_03 PUBLIC
+  ${fortrangis_INCLUDE_DIR}
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/modules>)
 
-target_link_libraries(shapelib_03 ${fortrangis_LIBRARY}
-   ${fortranc_LIBRARY} ${shapelib_LIBRARY})
+target_link_libraries(shapelib_03 PUBLIC ${fortrangis_LIBRARY}
+   PRIVATE ${fortranc_LIBRARY} ${shapelib_LIBRARY})
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 include(ConfigureCompilerFlags)
@@ -30,7 +30,7 @@ configure_package_config_file(Config.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
     INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
 
-if(CMAKE_Fortran_COMPILER_ID MATCHES NAG)
+if(CMAKE_Fortran_COMPILER_ID MATCHES NAG|Intel)
   set(install_include_dir include/${PROJECT_NAME})
   install(DIRECTORY ${PROJECT_BINARY_DIR}/modules/ DESTINATION
     ${install_include_dir})
