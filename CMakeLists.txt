@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(Shapelib_03 Fortran)
+project(Shapelib_03 LANGUAGES Fortran)
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release Profile)
 
 add_library(shapelib_03 dbf_add_field_03.f90 shp_append_null_03.f90
