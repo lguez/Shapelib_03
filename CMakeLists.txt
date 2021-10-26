@@ -8,23 +8,18 @@ add_library(shapelib_03 dbf_add_field_03.f90 shp_append_null_03.f90
   shp_append_object_03.f90 shp_get_info_03.f90
   dbf_get_field_index_03.f90 dbf_read_attribute_03.f90)
 
-find_path(fortrangis_INCLUDE_DIR shapelib.mod REQUIRED)
-find_library(fortrangis_LIBRARY fortrangis REQUIRED)
-find_library(fortranc_LIBRARY fortranc REQUIRED)
-find_library(shapelib_LIBRARY shp REQUIRED)
+find_package(fortrangis CONFIG REQUIRED)
 
 set_target_properties(shapelib_03 PROPERTIES Fortran_MODULE_DIRECTORY
   ${PROJECT_BINARY_DIR}/modules)
 
 target_include_directories(shapelib_03 PUBLIC
-  ${fortrangis_INCLUDE_DIR}
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/modules>)
 
-target_link_libraries(shapelib_03 PUBLIC ${fortrangis_LIBRARY}
-   PRIVATE ${fortranc_LIBRARY} ${shapelib_LIBRARY})
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 include(ConfigureCompilerFlags)
+target_link_libraries(shapelib_03 PUBLIC fortranGIS)
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(Config.cmake.in
