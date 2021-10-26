@@ -18,9 +18,6 @@ set_target_properties(shapelib_03 PROPERTIES Fortran_MODULE_DIRECTORY
 target_include_directories(shapelib_03 PUBLIC
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/modules>)
 
-
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
-include(ConfigureCompilerFlags)
 target_link_libraries(shapelib_03 PUBLIC fortranGIS)
 
 include(CMakePackageConfigHelpers)
