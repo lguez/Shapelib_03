@@ -8,7 +8,9 @@ add_library(shapelib_03 dbf_add_field_03.f90 shp_append_null_03.f90
   shp_append_object_03.f90 shp_get_info_03.f90
   dbf_get_field_index_03.f90 dbf_read_attribute_03.f90)
 
-find_package(fortrangis CONFIG REQUIRED)
+if(NOT TARGET fortranGIS)
+  find_package(fortrangis CONFIG REQUIRED)
+endif()
 
 set_target_properties(shapelib_03 PROPERTIES Fortran_MODULE_DIRECTORY
   ${PROJECT_BINARY_DIR}/modules)
