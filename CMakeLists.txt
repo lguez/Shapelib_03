@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 project(Shapelib_03 LANGUAGES Fortran)
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release Profile)
 
