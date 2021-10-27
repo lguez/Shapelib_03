@@ -21,6 +21,7 @@ endif()
 target_link_libraries(shapelib_03 PUBLIC fortranGIS)
 add_library(${PROJECT_NAME}::shapelib_03 ALIAS shapelib_03)
 
+# Start installation part
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES NAG|Intel)
   set(install_include_dir include/${PROJECT_NAME})
@@ -35,7 +36,11 @@ endif()
 
 install(TARGETS shapelib_03 EXPORT ${PROJECT_NAME}Targets LIBRARY
   INCLUDES DESTINATION ${install_include_dir})
+
 install(EXPORT ${PROJECT_NAME}Targets DESTINATION
   lib/cmake/${PROJECT_NAME} NAMESPACE ${PROJECT_NAME}:: FILE
   ${PROJECT_NAME}Config.cmake)
+
+# End installation part
+
 export(EXPORT ${PROJECT_NAME}Targets NAMESPACE ${PROJECT_NAME}::)
