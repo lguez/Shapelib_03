@@ -34,8 +34,8 @@ else()
   install(FILES ${PROJECT_BINARY_DIR}/modules/shapelib_03.mod TYPE INCLUDE)
 endif()
 
-install(TARGETS shapelib_03 EXPORT ${PROJECT_NAME}Targets LIBRARY
-  INCLUDES DESTINATION ${install_include_dir})
+install(TARGETS shapelib_03 EXPORT ${PROJECT_NAME}Targets INCLUDES
+  DESTINATION ${install_include_dir})
 
 install(EXPORT ${PROJECT_NAME}Targets DESTINATION
   lib/cmake/${PROJECT_NAME} NAMESPACE ${PROJECT_NAME}:: FILE
