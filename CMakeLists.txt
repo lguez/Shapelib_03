@@ -23,7 +23,7 @@ add_library(${PROJECT_NAME}::shapelib_03 ALIAS shapelib_03)
 
 # Start installation part
 
-if(CMAKE_Fortran_COMPILER_ID MATCHES NAG|Intel)
+if(CMAKE_Fortran_COMPILER_ID MATCHES NAG|Intel|PGI)
   set(install_include_dir include/${PROJECT_NAME})
 
   install(DIRECTORY ${PROJECT_BINARY_DIR}/modules/ DESTINATION
