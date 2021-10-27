@@ -20,10 +20,6 @@ endif()
 
 target_link_libraries(shapelib_03 PUBLIC fortranGIS)
 
-include(CMakePackageConfigHelpers)
-configure_package_config_file(Config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-    INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES NAG|Intel)
   set(install_include_dir include/${PROJECT_NAME})
@@ -38,7 +34,6 @@ endif()
 
 install(TARGETS shapelib_03 EXPORT ${PROJECT_NAME}Targets LIBRARY
   INCLUDES DESTINATION ${install_include_dir})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-  DESTINATION lib/cmake/${PROJECT_NAME})
-install(EXPORT ${PROJECT_NAME}Targets DESTINATION lib/cmake/${PROJECT_NAME})
+install(EXPORT ${PROJECT_NAME}Targets DESTINATION
+  lib/cmake/${PROJECT_NAME} FILE ${PROJECT_NAME}Config.cmake)
 export(EXPORT ${PROJECT_NAME}Targets)
