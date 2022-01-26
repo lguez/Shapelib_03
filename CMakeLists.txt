@@ -18,7 +18,7 @@ if(NOT TARGET fortranGIS)
   find_package(fortrangis CONFIG REQUIRED)
 endif()
 
-target_link_libraries(shapelib_03 PUBLIC fortranGIS)
+target_link_libraries(shapelib_03 PUBLIC fortrangis::fortranGIS)
 add_library(${PROJECT_NAME}::shapelib_03 ALIAS shapelib_03)
 
 # Start installation part
