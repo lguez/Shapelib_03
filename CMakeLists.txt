@@ -3,8 +3,18 @@ list(APPEND CMAKE_MESSAGE_CONTEXT Shapelib_03)
 project(Shapelib_03 LANGUAGES Fortran)
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release Profile)
 
-if(NOT TARGET fortranGIS)
-  find_package(fortrangis CONFIG REQUIRED)
+if(NOT TARGET fortrangis::fortranGIS)
+  option(FETCH "Download and build FortranGIS")
+
+  if(FETCH)
+    message(VERBOSE "Fetching FortranGIS")
+    include(FetchContent)
+    FetchContent_Declare(fortrangis GIT_REPOSITORY
+      https://github.com/ARPA-SIMC/fortrangis)
+    FetchContent_MakeAvailable(fortrangis)
+  else()
+    find_package(fortrangis CONFIG REQUIRED)
+  endif()
 endif()
 
 add_library(shapelib_03 dbf_add_field_03.f90 shp_append_null_03.f90
