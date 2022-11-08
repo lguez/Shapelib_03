@@ -6,6 +6,8 @@ contains
 
   subroutine shp_create_03(pszshapefile, nshapetype, hshp)
 
+    use, intrinsic:: ISO_FORTRAN_ENV
+
     use shapelib, only: shpfileobject, shpcreate, shpfileisnull, dbffileisnull
 
     CHARACTER(len=*), INTENT(in):: pszshapefile ! filename without extension
@@ -17,9 +19,9 @@ contains
     hshp = shpcreate(pszshapefile, nshapetype)
     
     if (shpfileisnull(hshp) .or. dbffileisnull(hshp)) then
-       print *, "shp_create_03: error"
-       print *, "pszshapefile = ", pszshapefile
-       print *, "nshapetype = ", nshapetype
+       write(unit = error_unit, fmt = *) "shp_create_03: error"
+       write(unit = error_unit, fmt = *) "pszshapefile = ", pszshapefile
+       write(unit = error_unit, fmt = *) "nshapetype = ", nshapetype
        stop 1
     end if
     

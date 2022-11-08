@@ -6,6 +6,8 @@ contains
   
   subroutine dbf_get_field_index_03(hshp, pszfieldname, ifield)
 
+    use, intrinsic:: ISO_FORTRAN_ENV
+
     use shapelib, only: shpfileobject, dbfgetfieldindex
 
     TYPE(shpfileobject), INTENT(in):: hshp
@@ -17,9 +19,10 @@ contains
     ifield = dbfgetfieldindex(hshp, pszfieldname)
     
     if (ifield == - 1) then
-       print *, "dbf_get_field_index_03: field is not found or shapefile ", &
+       write(unit = ERROR_UNIT, fmt = *) &
+            "dbf_get_field_index_03: field is not found or shapefile ", &
             "object is not valid"
-       print *, "pszfieldname = ", pszfieldname
+       write(unit = ERROR_UNIT, fmt = *) "pszfieldname = ", pszfieldname
        stop 1
     end if
     

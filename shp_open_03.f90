@@ -6,6 +6,8 @@ contains
 
   subroutine shp_open_03(hshp, pszshapefile, pszaccess, iostat)
 
+    use, intrinsic:: ISO_FORTRAN_ENV
+
     use shapelib, only: shpfileobject, shpopen, shpfileisnull, dbffileisnull
 
     TYPE(shpfileobject), intent(out):: hshp
@@ -24,9 +26,9 @@ contains
        if (present(iostat)) then
           iostat = 1
        else
-          print *, "shp_open_03: error"
-          print *, "pszshapefile = ", pszshapefile
-          print *, "pszaccess = ", pszaccess
+          write(unit = error_unit, fmt = *) "shp_open_03: error"
+          write(unit = error_unit, fmt = *) "pszshapefile = ", pszshapefile
+          write(unit = error_unit, fmt = *) "pszaccess = ", pszaccess
           stop 1
        end if
     else
