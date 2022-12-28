@@ -22,7 +22,7 @@ contains
 
     REAL, INTENT(out):: attr
     TYPE(shpfileobject), value:: hshp
-    INTEGER, INTENT(in):: ifield, ishape
+    INTEGER, INTENT(in):: ifield, ishape ! 0-based
 
     ! Local:
     real(c_double) attr_double

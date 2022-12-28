@@ -21,6 +21,8 @@ contains
     !-------------------------------------------------------------
 
     hshp = shpopen(pszshapefile, pszaccess)
+    ! Note that the shapelib C library prints a message if opening
+    ! fails, we cannot prevent this.
     
     if (shpfileisnull(hshp) .or. dbffileisnull(hshp)) then
        if (present(iostat)) then

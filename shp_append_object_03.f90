@@ -9,7 +9,9 @@ module shp_append_object_03_m
   interface shp_append_object_03
      module procedure shp_append_object_03_single, shp_append_object_03_c_double
      ! Not for MultiPatch shape type. No measure. The difference
-     ! between the procedures is the kind of argument padf.
+     ! between the procedures is the kind of argument padf. Note there
+     ! is no need to position the shapefile to its end: shpwriteobject
+     ! is called with argument - 1 which means append.
   end interface shp_append_object_03
 
   integer, parameter:: shpp_ring = 5

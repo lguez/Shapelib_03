@@ -5,8 +5,8 @@ module shapelib_03
   use dbf_read_attribute_03_m
   use dbf_write_attribute_03_m
   use shp_append_null_03_m
-  use shp_append_point_03_m
   use shp_append_object_03_m
+  use shp_append_point_03_m
   use shp_create_03_m
   use shp_get_info_03_m
   use shp_open_03_m
