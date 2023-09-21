@@ -11,5 +11,6 @@ module shapelib_03
   use shp_get_info_03_m
   use shp_open_03_m
   use shp_read_object_03_m
+  use shp_read_point_m
 
 end module shapelib_03
