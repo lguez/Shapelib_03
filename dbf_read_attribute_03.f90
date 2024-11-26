@@ -11,6 +11,8 @@ module dbf_read_attribute_03_m
   ! Value attribute to circumvent a bug in FortranGIS: dummy
   ! argument hshp of dbfreadattribute should be intent(in).
 
+  ! Both ifield and ishape are 0-based.
+
   private
   public dbf_read_attribute_03
 
@@ -22,7 +24,7 @@ contains
 
     REAL, INTENT(out):: attr
     TYPE(shpfileobject), value:: hshp
-    INTEGER, INTENT(in):: ifield, ishape ! 0-based
+    INTEGER, INTENT(in):: ifield, ishape
 
     ! Local:
     real(c_double) attr_double
